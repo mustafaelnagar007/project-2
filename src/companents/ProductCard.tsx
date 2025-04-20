@@ -3,12 +3,27 @@ import Image from "./Image"
 import { IProduct } from "../interfaces"
 import { txtSlicer } from "../utils"
 
+import Circal from "./ui/Circal"
+
 interface IProductCardProps 
 {
-product:IProduct
+product:IProduct,
+
+setEdit:(product:IProduct)=>void
+
+openEdit:(value:boolean)=>void
 }
-const ProductCard = ({product}:IProductCardProps) => {
-  const { title, price, description, imageURL,category} = product
+const ProductCard = ({product,setEdit,openEdit}:IProductCardProps) => {
+  const { title, price, description, imageURL,colors,category} = product
+  const colorList=colors.map(color=>
+   
+    <Circal key={color} Color={color} />  )
+  const editHandler=()=>
+  {
+    setEdit(product)
+    openEdit(true)
+    
+  }
   return (
     <div className='mx-auto md:mx-0 max-w-sm md:max-w-lg flex flex-col bg-white border rounded-md'>
      <div className='flex flex-col items-center '>
@@ -17,9 +32,8 @@ const ProductCard = ({product}:IProductCardProps) => {
       <p>{txtSlicer(description)}</p>
      </div>
      <div className='flex  items-center space-x-2'>
-      <span className={`w-5 h-5 rounded-full bg-red-600 cursor-pointer`}/>
-      <span className='w-5 h-5 rounded-full bg-yellow-600 cursor-pointer'/>
-      <span className='w-5 h-5 rounded-full bg-cyan-600 cursor-pointer'/>
+     {colorList}
+
      </div>
      <div className='flex items-center justify-between p-2'>
       <span className='text-3xl'>${price}</span>
@@ -28,7 +42,7 @@ const ProductCard = ({product}:IProductCardProps) => {
        className='rounded-full w-20 h-20 object-center' />
      </div>
      <div className='flex items-center justify-between space-x-2'>
-      <Button className='bg-blue-600 text-white p-2 rounded-md ' onclick={() => { } } width="w-full" >Edit</Button>
+      <Button className='bg-blue-600 text-white p-2 rounded-md ' onclick={ editHandler } width="w-full" >Edit</Button>
       <Button className='bg-red-600 text-white p-2 rounded-md '  onclick={()=>{}} width="w-full">Delete</Button>
      </div>
     </div>

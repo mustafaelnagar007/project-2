@@ -1,7 +1,7 @@
 import { ProductNameTypes } from "../Types";
 
 export interface IProduct {
-    id?: string;
+    id?: string |undefined;
     title: string;
     description: string;
     imageURL: string;
@@ -17,6 +17,7 @@ export interface IProduct {
     name: ProductNameTypes;
     label: string;
     type: string;
+    blacholder: string;
   }
   export interface ICategory {
     id: string;
